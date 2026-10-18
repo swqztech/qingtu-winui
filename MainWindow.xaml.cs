@@ -19,9 +19,15 @@ public sealed partial class MainWindow : Window
         ExtendsContentIntoTitleBar = true;
         SetTitleBar(AppTitleBar);
 
-        AppWindow.SetIcon("Assets/AppIcon.ico");
+        try
+        {
+            AppWindow.SetIcon("Assets/AppIcon.ico");
+        }
+        catch
+        {
+            // 图标缺失时不阻断启动
+        }
 
-        // Navigate the root frame to the main page on startup.
         RootFrame.Navigate(typeof(MainPage));
     }
 }

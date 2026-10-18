@@ -4,7 +4,6 @@ using Microsoft.UI.Xaml.Media;
 using Qingtu.Helpers;
 using Qingtu.Models;
 using Qingtu.Services;
-using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
@@ -19,8 +18,12 @@ public sealed partial class MainPage : Page
     public MainPage()
     {
         InitializeComponent();
-        UpdateTabUi();
-        UpdateRunLabel();
+        Loaded += (_, _) =>
+        {
+            SliderQuality.ValueChanged += OnQualityChanged;
+            UpdateTabUi();
+            UpdateRunLabel();
+        };
     }
 
     private void OnTabCompress(object sender, RoutedEventArgs e)
@@ -74,19 +77,6 @@ public sealed partial class MainPage : Page
         ChkCustomOut.IsChecked = true;
     }
 
-    private void OnDragOver(object sender, DragEventArgs e)
-    {
-        if (e.DataView.Contains(StandardDataFormats.StorageItems))
-            e.AcceptedOperation = DataPackageOperation.Copy;
-    }
-
-    private async void OnDrop(object sender, DragEventArgs e)
-    {
-        if (!e.DataView.Contains(StandardDataFormats.StorageItems)) return;
-        var items = await e.DataView.GetStorageItemsAsync();
-        AddFiles(items.OfType<StorageFile>().Select(f => f.Path));
-    }
-
     private void AddFiles(IEnumerable<string> paths)
     {
         foreach (var p in paths)
@@ -95,7 +85,7 @@ public sealed partial class MainPage : Page
             _files.Add(p);
             FileList.Items.Add(Path.GetFileName(p));
         }
-        TxtDropHint.Text = _files.Count > 0 ? $"已选 {_files.Count} 个文件" : "拖拽图片到这里";
+        TxtDropHint.Text = _files.Count > 0 ? $"已选 {_files.Count} 个文件" : "点击下方选择图片";
         TxtDropHint.Foreground = _files.Count > 0
             ? (Brush)Resources["TealBrush"]
             : (Brush)Resources["MutedBrush"];

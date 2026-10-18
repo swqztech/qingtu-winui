@@ -1,0 +1,11 @@
+轻图（WinUI 版）— 绿色版
+
+双击 qingtu-winui.exe 或 启动.bat 运行（请在资源管理器中运行，不要在编辑器里打开 exe）。
+
+运行环境（本机需已安装）：
+1. .NET 8 桌面运行时：https://dotnet.microsoft.com/download/dotnet/8.0
+2. Windows App Runtime 1.6 或更高（Windows 11 22H2+ 一般已带；否则见 Windows 应用 SDK 下载页）
+
+本包为框架依赖发布，文件夹内主要是程序与 SkiaSharp 等依赖，体积远小于自包含版。
+
+数据与输出：压缩结果默认在源图片旁的 compressed 文件夹。
