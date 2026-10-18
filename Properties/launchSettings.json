@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Qingtu (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "Qingtu (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
